@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almanaque X - Início</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo a Agenda de Contatos</h1>
+        <div class="button-container">
+            <button id="register-button" class="animated-button">Cadastrar Novo Contato</button>
+            <button id="view-contacts-button" class="animated-button">Ver Contatos Cadastrados</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('register-button').addEventListener('click', function() {
+            window.location.href = 'cadastro.html';
+        });
+
+        document.getElementById('view-contacts-button').addEventListener('click', function() {
+            window.location.href = 'contatos.html';
+        });
+    </script>
+
+    <footer class="footer">
+        <p>Produced by Almanaque</p>
+        <img src="images/logoalmanaque.png" alt="Almanaque X" class="footer-logo">
+        
+    </footer>
+
+</body>
+</html>
