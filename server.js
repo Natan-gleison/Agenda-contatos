@@ -2,10 +2,14 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+// Servir arquivos estáticos (HTML, CSS, JS) da pasta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuração do pool de conexões MySQL
 const db = mysql.createPool({
@@ -59,12 +63,18 @@ app.delete('/delete/:id', (req, res) => {
     });
 });
 
-// Iniciar servidor
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+// Rota para servir o index.html (caso o usuário acesse "/")
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Para garantir que o banco de dados será desconectado corretamente ao fechar o servidor
+// Configurar a porta dinâmica para funcionar no Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
+// Garantir que o banco de dados será desconectado corretamente ao fechar o servidor
 process.on('SIGINT', () => {
     db.end((err) => {
         if (err) {
